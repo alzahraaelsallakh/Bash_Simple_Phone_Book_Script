@@ -10,6 +10,8 @@ else
 	touch $fileName
 fi
 
+#Enabling Script access to database
+chmod +rw $fileName
 
 
 #Checking for options
@@ -149,7 +151,8 @@ else
 
 fi 
 
-
+#Disabling Script and others' access to database
+chmod -rw $fileName
 
 
 ##Creating phonebook dictionary
