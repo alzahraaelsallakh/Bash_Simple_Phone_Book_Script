@@ -43,7 +43,8 @@ else
 			then :
 			else multipleNumbers=0
 			fi
-		done;;
+		done
+		echo Adding New Contact is Done...;;
 	#view all saved contacs
 	-v)
 		cat $fileName;;
@@ -51,30 +52,34 @@ else
 	#search by contact name
 	-s)
 		read -p 'Search By Contact Name: ' searchName
-		lineOfName=`grep -in $searchName $fileName | cut -f1 -d:`
-		echo $lineOfName
-		if test -z $lineOfName
+		linesOfName=`grep -in "$searchName" $fileName | cut -f1 -d:`
+		if test -z "$linesOfName"
 		then
 			echo No results found
 		else
-			lineOfNumber=$((lineOfName+1))
-			cat -n $fileName | grep "^ *$lineOfNumber" | cut -f2
+			for lineOfName in $linesOfName
+				do
+				lineOfNumber=$((lineOfName+1))
+				cat -n $fileName | grep "^ *$lineOfName" | cut -f2
+				cat -n $fileName | grep "^ *$lineOfNumber" | cut -f2
+			done
 		fi;;
 	
 	#delete all records	
 	-e)
+		echo Deletion Completed...
 		> $fileName;;
 
 	#delete one contact 
 	-d)
 		read -p 'Delete Contact Name: ' deletedName
 		lineOfContact=`grep -in $deletedName $fileName | cut -f1 -d:`
-		echo $lineOfContact
 		if test -z $lineOfContact
 		then
 			echo No results found
 		else
 			sed -i $lineOfContact,$((lineOfContact+1))'d' $fileName
+			echo Deletion Completed...
 		fi;;
 	*)
 		echo invalid option;;
