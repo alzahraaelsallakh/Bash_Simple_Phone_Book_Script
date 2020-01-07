@@ -23,8 +23,3 @@ The available options are:
 - Search by contact name, with the option "-s"
 - Delete all records, with "-e"
 - Delete only one contact name, with "-d"
-
-**Common bugs you need to take care of:**
-- When moving the script from one folder to the other make sure your script points to a single location for the
-database file (think where should an application keep its data!?) ​ Hint:​ /etc/phonebook
-- Your script must check if a database file exist before trying to create a new one
