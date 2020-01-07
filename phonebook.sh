@@ -60,8 +60,7 @@ else
 			for lineOfName in $linesOfName
 				do
 				lineOfNumber=$((lineOfName+1))
-				cat -n $fileName | grep "^ *$lineOfName" | cut -f2
-				cat -n $fileName | grep "^ *$lineOfNumber" | cut -f2
+				sed -n -e $lineOfName'p' -e $lineOfNumber'p' $fileName
 			done
 		fi;;
 	
@@ -73,13 +72,40 @@ else
 	#delete one contact 
 	-d)
 		read -p 'Delete Contact Name: ' deletedName
-		lineOfContact=`grep -in $deletedName $fileName | cut -f1 -d:`
-		if test -z $lineOfContact
+		linesOfContact=`grep -in "$deletedName" $fileName | cut -f1 -d:`
+		numberOfOccurances=`grep -in "$deletedName" $fileName | cut -f1 -d:|wc -w`
+		if test -z "$linesOfContact"
 		then
 			echo No results found
 		else
-			sed -i $lineOfContact,$((lineOfContact+1))'d' $fileName
-			echo Deletion Completed...
+			if [ $numberOfOccurances -ne 1 ] 
+			then
+				echo There are many contacts with the same name: $deletedName
+				for lineOfContact in $linesOfContact
+					do
+					sed -n $lineOfContact'p' $fileName
+				done
+				read -p 'Do you want to delete them all (y/n)? ' deleteDecision
+				if [ $deleteDecision = y ]
+				then
+					occurance=0
+					while [ $occurance -lt $numberOfOccurances ]
+						do
+						lineOfContact=${linesOfContact:0:1}
+						sed -i $lineOfContact,$((lineOfContact+1))'d' $fileName
+						linesOfContact=`grep -in "$deletedName" $fileName | cut -f1 -d:`
+						occurance=$((occurance+1))
+						
+					done
+					echo Deletion Completed...	
+				else
+					echo Please Enter the Full Name
+				fi
+
+			else
+				sed -i $linesOfContact,$((linesOfContact+1))'d' $fileName
+				echo Deletion Completed...
+			fi
 		fi;;
 	*)
 		echo invalid option;;
