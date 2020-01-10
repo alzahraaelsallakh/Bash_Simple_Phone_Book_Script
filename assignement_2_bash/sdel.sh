@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#adding script to cron daemon
 scriptName=`echo $0 | cut -f2 -d/`
 addedToCron=`crontab -l | grep $scriptName`
 if test -z "$addedToCron"
@@ -74,40 +73,37 @@ do
 	#Extracting file name from path if it's a path 
 	fileName=$(basename "$file")
 	#checking if file exists or not
-	if test -f $fileName 
+	if test -e $file 
 	then
 		#file exists
 		#grepping the state of compressing file
-		compressed=`file -e compress $fileName | grep compressed`
+		compressed=`file -e compress $file | grep compressed`
 		if test -z "$compressed"
 		then
 			#file is not compressed
 			#compressing file
-			tar czf $fileName.tar.gz $fileName
-			rm $fileName 2>>/dev/null
+			#redirecting 'Removing leading `/' from member names' to dev/null
+			tar czf $file.tar.gz $file 2>>/dev/null
+			#deleting files and directories after zipping it
+			rm -r $file
 			if [ $? -eq 0 ]
 			then
 				echo $fileName deleted safely
 				fileName=$fileName.tar.gz
-				mv $fileName $trashDirectory				
+				file=$file.tar.gz
+				mv $file $trashDirectory				
 			else
 				echo "Problem in deleting File"
 			fi
 		else
 			#file is already compressed, move it to TRASH directory
-			mv $fileName $trashDirectory
+			mv $file $trashDirectory
 			echo $fileName deleted safely
 		fi
 		
 	else
-		if test -d $fileName
-		then
-			echo "Error in deleting file, $fileName is directory"
-		else
-
-			#file not exists
-			echo "$fileName:No such file"
-		fi
+		#file not exists
+		echo "$fileName: No such file or directory"
 	fi
 	
 done
