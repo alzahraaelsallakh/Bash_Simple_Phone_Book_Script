@@ -155,6 +155,8 @@ fi
 chmod -rw $fileName
 
 
+#To make the database portable
+
 ##Creating phonebook dictionary
 #declare -A phonebook
  
