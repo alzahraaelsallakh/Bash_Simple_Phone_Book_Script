@@ -62,7 +62,8 @@ deletedFiles=$*
 
 for file in $deletedFiles
 do
-	fileName=$file
+	#Extracting file name from path if it's a path 
+	fileName=$(basename "$file")
 	#checking if file exists or not
 	if test -f $fileName 
 	then
