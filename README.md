@@ -14,9 +14,9 @@ numbers, with these features:
 - Normally there is a “.phonebookDB.txt” which ur script creates to store the names and numbers.
 
 **Bonus1:** ​ make the database inside the script itself (meaning the script would edit itself while running), that
-would make your script highly portable.
+would make your script highly portable. (not implemented)
 
-**Bonus2:** ​ a single name can have multiple phone numbers within the same database entry.
+**Bonus2:** ​ a single name can have multiple phone numbers within the same database entry. (implemented)
 
 The available options are:
 - Insert new contact name and number, with the option "-i"
@@ -40,7 +40,7 @@ Filenames passed as command-line arguments to this script are not deleted, but i
 compressed (use file to check), then moved to a ~/TRASH directory. Upon invocation, the script checks the
 ~/TRASH directory for files older than 48 hours and permanently deletes them.
 
-**Bonus1:** ​ Make the script periodically invoked by the “cron” daemon
+**Bonus1:** ​ Make the script periodically invoked by the “cron” daemon (implemented)
 
 **Bonus2:** ​ Write the script so it can handle files and directories recursively. This would give it the capability of
-"safely deleting" entire directory structures.
+"safely deleting" entire directory structures. (implemented)
