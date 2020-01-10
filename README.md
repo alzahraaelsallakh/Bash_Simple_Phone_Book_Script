@@ -1,4 +1,5 @@
 # Embedded Linux Z2HV2
+
 ## Assignment 1 - Bash ##
 ## Simple Phone Book Script ##
 
@@ -23,3 +24,23 @@ The available options are:
 - Search by contact name, with the option "-s"
 - Delete all records, with "-e"
 - Delete only one contact name, with "-d"
+
+
+## Assignment 2 - Bash ##
+## Safe Delete Script ##
+
+### Summary: ###
+The goal of this Assignment is to practice the basics of Shell Scripting Usage and Capabilities.
+
+**Bonus:** get familiar with daemons.
+
+### Requirements: ###
+Implement, as a script, a "safe" delete command, sdel.sh.
+Filenames passed as command-line arguments to this script are not deleted, but instead gzipped if not already
+compressed (use file to check), then moved to a ~/TRASH directory. Upon invocation, the script checks the
+~/TRASH directory for files older than 48 hours and permanently deletes them.
+
+**Bonus1:** ​ Make the script periodically invoked by the “cron” daemon
+
+**Bonus2:** ​ Write the script so it can handle files and directories recursively. This would give it the capability of
+"safely deleting" entire directory structures.
