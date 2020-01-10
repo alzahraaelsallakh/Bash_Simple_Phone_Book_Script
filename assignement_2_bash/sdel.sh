@@ -1,5 +1,14 @@
 #!/bin/bash
 
+#adding script to cron daemon
+scriptName=`echo $0 | cut -f2 -d/`
+addedToCron=`crontab -l | grep $scriptName`
+if test -z "$addedToCron"
+then
+	executedScript=`pwd`/$scriptName
+	crontab -l 2>/dev/null
+	echo "0 12 * * *  .$executedScript" | crontab -
+fi
 
 trashDirectory=~/TRASH
 
