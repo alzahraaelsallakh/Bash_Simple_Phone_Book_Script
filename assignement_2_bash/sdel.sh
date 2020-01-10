@@ -22,7 +22,7 @@ fi
 #getting files existed in Trash dir
 trashFiles=`ls $trashDirectory`
 
-limitedTime=1
+limitedTime=48
 
 #saving current working dir
 workingDir=`pwd`
