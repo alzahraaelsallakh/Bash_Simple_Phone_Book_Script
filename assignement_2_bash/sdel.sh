@@ -1,12 +1,12 @@
 #!/bin/bash
 
 scriptName=`echo $0 | cut -f2 -d/`
-addedToCron=`crontab -l | grep $scriptName`
+addedToCron=`crontab -l | grep $scriptName` 
 if test -z "$addedToCron"
 then
 	executedScript=`pwd`/$scriptName
 	crontab -l 2>/dev/null
-	echo "0 12 * * *  .$executedScript" | crontab -
+	echo "* * * * * $executedScript" | crontab -
 fi
 
 trashDirectory=~/TRASH
@@ -22,7 +22,7 @@ fi
 #getting files existed in Trash dir
 trashFiles=`ls $trashDirectory`
 
-limitedTime=48
+limitedTime=1
 
 #saving current working dir
 workingDir=`pwd`
